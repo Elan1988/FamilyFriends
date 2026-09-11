@@ -1,43 +1,8 @@
-import { Wallet, Heart, Banknote } from 'lucide-react';
-
-type ReportProps = {
-  totalIncome: number;
-  socialFund: number;
-  loanFund: number;
-}
-
-export default function Report({ totalIncome, socialFund, loanFund }: ReportProps) {
+export default function Report() {
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">Raporo y'Ukwezi - Nzeri 2026</h1>
-      
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        
-        <div className="bg-green-50 border border-green-200 p-6 rounded-xl shadow">
-          <div className="flex items-center gap-3 mb-2">
-            <Wallet className="text-green-600" />
-            <h2 className="font-bold text-green-800">Ayinjiye</h2>
-          </div>
-          <p className="text-3xl font-bold text-green-900">{totalIncome.toLocaleString()} RWF</p>
-        </div>
-
-        <div className="bg-blue-50 border-blue-200 p-6 rounded-xl shadow">
-          <div className="flex items-center gap-3 mb-2">
-            <Heart className="text-blue-600" />
-            <h2 className="font-bold text-blue-800">Social</h2>
-          </div>
-          <p className="text-3xl font-bold text-blue-900">{socialFund.toLocaleString()} RWF</p>
-        </div>
-
-        <div className="bg-orange-50 border border-orange-200 p-6 rounded-xl shadow">
-          <div className="flex items-center gap-3 mb-2">
-            <Banknote className="text-orange-600" />
-            <h2 className="font-bold text-orange-800">Loan</h2>
-          </div>
-          <p className="text-3xl font-bold text-orange-900">{loanFund.toLocaleString()} RWF</p>
-        </div>
-
-      </div>
+      <h1 className="text-2xl font-bold">Report Irariko!</h1>
+      <p>Ayinjiye: 1980000 RWF</p>
     </div>
   )
 }
