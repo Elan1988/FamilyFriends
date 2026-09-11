@@ -252,7 +252,6 @@ export default function Dashboard({ onNavigate }: Props) {
           <div className="flex justify-between items-center pt-3 border-t border-gray-100">
             <span className="text-base font-bold text-gray-900">Igiteranyo Rusange</span>
             <span className="text-base font-bold text-teal-600">{formatRwf(grandTotal)}</span>
-          </div>
         </div>
       </div>
   );
