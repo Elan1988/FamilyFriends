@@ -5,8 +5,8 @@ import KwinjizaIbyinjiye from '@/pages/KwinjizaIbyinjiye';
 import Abanyamuryango from '@/pages/Abanyamuryango';
 import Login from '@/pages/Login';
 import MemberDashboard from '@/pages/MemberDashboard';
-
-type Page = 'dashboard' | 'kwinjiza' | 'abanyamuryango';
+import Report from '@/pages/Report';
+type Page = 'dashboard' | 'kwinjiza' | 'abanyamuryango' | 'Report';
 
 export default function App() {
   const [page, setPage] = useState<Page>('dashboard');
@@ -17,6 +17,7 @@ export default function App() {
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'kwinjiza', label: 'Kwinjiza', icon: CheckCircle2 },
     { id: 'abanyamuryango', label: 'Abanyamuryango', icon: Users },
+    { id: 'report', label: 'Report', icon: CheckCircle2 },
   ];
 
   // Login view
