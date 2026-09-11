@@ -117,7 +117,7 @@ export default function App() {
         {page === 'dashboard' && <Dashboard onNavigate={(p) => setPage(p)} />}
         {page === 'kwinjiza' && <KwinjizaIbyinjiye onBack={() => setPage('dashboard')} onGoToMembers={() => setPage('abanyamuryango')} />}
         {page === 'abanyamuryango' && <Abanyamuryango onBack={() => setPage('dashboard')} />}
-        {page === 'report' && <Report totalIncome={1980000} socialFund={250000 {loanFund={500000} />} {/* IKI NI KIGISHA */}
+        {page === 'report' && <Report totalIncome={1980000} socialFund={250000 {loanFund={500000} />}
       </main>
 
       {/* Mobile bottom nav */}
