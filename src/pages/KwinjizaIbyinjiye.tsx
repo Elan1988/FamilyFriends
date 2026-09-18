@@ -99,9 +99,12 @@ export default function KwinjizaIbyinjiye({ onBack, onGoToMembers }: Props) {
   };
 
   const handleEditLoan = (loan: any) => {
-    setEditingLoanId(loan.id);
-    window.scrollTo({top:0, behavior:'smooth'});
-  };
+  setEditingLoanId(loan.id);
+  setLoanMemberId(loan.member_id);
+  setLoanAmountNum(loan.amount);
+  setLoanDate(loan.loan_date);
+  window.scrollTo({top:0, behavior:'smooth'});
+};
 
   const loadTransactions = useCallback(async () => {
     const { data } = await supabase.from('payments').select('*').order('created_at', { ascending: false });
@@ -277,16 +280,28 @@ export default function KwinjizaIbyinjiye({ onBack, onGoToMembers }: Props) {
     if (loanAmountNum <= 0) { setLoanError("Andika amafaranga y'inguzanyo."); return; }
 
     setLoanSaving(true);
-    const { error: insErr } = await supabase.from('loans').insert({
-      member_id: loanMemberId,
-      amount: loanAmountNum,
-      loan_date: loanDate,
-    });
+    let insErr = null;
+if (editingLoanId) {
+  const { error } = await supabase.from('loans').update({
+    member_id: loanMemberId,
+    amount: loanAmountNum,
+    loan_date: loanDate,
+  }).eq('id', editingLoanId);
+  insErr = error;
+} else {
+  const { error } = await supabase.from('loans').insert({
+    member_id: loanMemberId,
+    amount: loanAmountNum,
+    loan_date: loanDate,
+  });
+  insErr = error;
+}
     setLoanSaving(false);
 
     if (insErr) { setLoanError(insErr.message); return; }
 
     setLoanSavedMsg('Inguzanyo yanditswe neza!');
+    setEditingLoanId(null);
     setLoanMemberId('');
     setLoanAmount('');
     setLoanDate(today);
@@ -777,6 +792,10 @@ export default function KwinjizaIbyinjiye({ onBack, onGoToMembers }: Props) {
                         <span>Inyungu ({l.months} azi): {formatRwf(l.interest)}</span>
                         <span className="font-semibold text-rose-600">Yose: {formatRwf(l.total)}</span>
                       </div>
+                              <div className="flex gap-2 mt-3">
+          <button onClick={() => handleEditLoan(l)} className="bg-amber-500 hover:bg-amber-600 text-white px-3 py-1 rounded text-xs">Hindura</button>
+          <button onClick={() => handleDeleteLoan(l.id)} className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs">Siba</button>
+        </div>
                     </div>
                   );
                 })}
