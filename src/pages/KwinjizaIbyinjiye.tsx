@@ -289,13 +289,15 @@ if (editingLoanId) {
   }).eq('id', editingLoanId);
   insErr = error;
 } else {
-  const { error } = await supabase.from('loans').insert({
-    member_id: loanMemberId,
-    amount: loanAmountNum,
-    loan_date: loanDate,
-  });
-  insErr = error;
+let err = null;
+if (editingLoanId) {
+  const r = await supabase.from('loans').update({ member_id: loanMemberId, amount: loanAmountNum, loan_date: loanDate, months: loanMonths }).eq('id', editingLoanId);
+  err = r.error;
+} else {
+  const r = await supabase.from('loans').insert([{ member_id: loanMemberId, amount: loanAmountNum, loan_date: loanDate, months: loanMonths, interest_rate: 0.05 }]);
+  err = r.error;
 }
+if (err) {
     setLoanSaving(false);
 
     if (insErr) { setLoanError(insErr.message); return; }
