@@ -90,6 +90,18 @@ export default function KwinjizaIbyinjiye({ onBack, onGoToMembers }: Props) {
       setLoans(data.map((l: Loan) => ({ ...l, ...computeLoanInterest(l) })));
     }
   }, []);
+  const [editingLoanId, setEditingLoanId] = useState<string | null>(null);
+
+  const handleDeleteLoan = async (id: string) => {
+    if(!confirm("Ushaka gusiba iyi nguzanyo?")) return;
+    await supabase.from('loans').delete().eq('id', id);
+    loadLoans();
+  };
+
+  const handleEditLoan = (loan: any) => {
+    setEditingLoanId(loan.id);
+    window.scrollTo({top:0, behavior:'smooth'});
+  };
 
   const loadTransactions = useCallback(async () => {
     const { data } = await supabase.from('payments').select('*').order('created_at', { ascending: false });
