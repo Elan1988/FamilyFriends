@@ -116,6 +116,22 @@ export default function KwinjizaIbyinjiye({ onBack, onGoToMembers }: Props) {
   const pa = parseInt(amandeAmount, 10) || 0;
   const totalAmount = sa + ia + pa;
 
+    const [editingLoanId, setEditingLoanId] = useState<string | null>(null);
+
+  const handleDeleteLoan = async (id: string) => {
+    if(!confirm("Ushaka gusiba iyi nguzanyo?")) return;
+    const { error } = await supabase.from('loans').delete().eq('id', id);
+    if(!error) { loadLoans(); }
+  };
+
+  const handleEditLoan = (loan: any) => {
+    setEditingLoanId(loan.id);
+    setMemberId(loan.member_id);
+    setShareAmount(loan.share_amount?.toString() || '0');
+    setIngobokaAmount(loan.ingoboka_amount?.toString() || '0');
+    setAmandeAmount(loan.amande_amount?.toString() || '0');
+    window.scrollTo({top:0, behavior:'smooth'});
+  };
   // Auto-set amande based on payment date day
   function handlePaymentDateChange(value: string) {
     setPaymentDate(value);
